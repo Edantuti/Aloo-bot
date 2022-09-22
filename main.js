@@ -4,9 +4,16 @@ const {REST} = require("@discordjs/rest");
 const { Routes } = require("discord-api-types/v10");
 const { Client,GatewayIntentBits, Collection } = require("discord.js");
 const { Player } = require("discord-player");
+const express = require("express");
 
 const fs = require("node:fs");
 const path = require("node:path");
+
+
+const route = require('./website/merger.js');
+
+const app = express();
+
 
 const client = new Client({
     intents:[GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.GuildVoiceStates, GatewayIntentBits.GuildPresences]
@@ -39,10 +46,7 @@ client.on("ready", () => {
     const guild_ids = client.guilds.cache.map(guild => guild.id);
 
     const rest = new REST({version:"9"}).setToken(process.env.TOKEN);
-    for(const guildId of guild_ids)
-    {
-        
-    }
+       
     rest.put(Routes.applicationCommands(process.env.CLIENT_ID), {body: commands}).then(()=> console.log(`Added ${commands.length}`)).catch(console.error);
 })
 
@@ -62,6 +66,9 @@ client.on("interactionCreate", async interaction => {
         await interaction.reply("An error occured while executing that command.");
     }
 })
+for(const router of route)
+        app.use(router.dir, router.route)
+app.listen(process.env.PORT, ()=> console.log(`App listening at https://localhost:${process.env.PORT}`));
 
 client.login(process.env.TOKEN)
 
