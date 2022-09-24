@@ -28,9 +28,9 @@ router.get('/',async (req, res)=>{
             token.push(response.data.access_token);
             token.push(response.data.refresh_token);
 
-            return res.json({access_token:response.data.access_token, refresh_token:response.data.refresh_token})
+            return res.render("auth", {token:response.data.access_token, refresh:response.data.refresh_token})
         }
-        return res.json({})
+        return res.render("auth", {token:"", refresh:""})
     }catch(err){
         console.error(err)
     }

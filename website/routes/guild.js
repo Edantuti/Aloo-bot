@@ -27,6 +27,8 @@ router.get("/", async (req, res)=>{
     }
 })
 
+
+
 module.exports = {
     dir:"/guild",
     route:router

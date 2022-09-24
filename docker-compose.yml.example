@@ -6,3 +6,6 @@ services:
     environment:
       - TOKEN=
       - CLIENT_ID=
+      - CLIENT_SECRET=
+      - PORT=
+      - MONGO_URL=
