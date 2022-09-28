@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Server list</title>
+    <style>
+        #card{
+            border:2px green solid;
+            margin: 2px;
+        }
+    </style>
+</head>
+<body>
+    <% for( let server of servers ) { %>
+        <% if((server.permissions & 0x20) === 0x20) { %>
+        <div id="card">
+            <p>Name:<%= server.name %> </p>
+            <a href="<%= server.id %>"><%= server.name %></a>
+            <p>Permissions:<%= server.permissions %> </p>
+        </div>
+        <% } %>
+    <% } %>
+</body>
+</html>

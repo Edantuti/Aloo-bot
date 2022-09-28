@@ -4,7 +4,10 @@ const express = require("express");
 const router = express.Router();
 
 router.get("", (req, res)=>{
-    return res.render("index", {})
+    
+    if(!req.session.data)
+        return res.render("index", {data:undefined})
+    res.render("index", {data:req.session.data})
 })
 
 module.exports = {
